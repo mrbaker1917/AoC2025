@@ -43,22 +43,18 @@ sum = 0
 
 def find_12_largest(s):
     while len(s) > 12:
-        print(s)
         # Find the leftmost position where s[i] < s[i+1]
         removed = False
         for i in range(len(s) - 1):
             if s[i] < s[i + 1]:
-                print(s[i])
                 s = s[:i] + s[i+1:]
                 removed = True
                 break
         # If no such position exists, remove the last digit
         if not removed:
             s = s[:-1]
-    print(s)
     return s
 
-# print(find_12_largest(s))
 
 new_data = data
 for i, r in enumerate(new_data):
