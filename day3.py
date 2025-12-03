@@ -1,6 +1,6 @@
 data = []
 
-with open("day3_test_data.txt", 'r') as f:
+with open("day3_data.txt", 'r') as f:
     data = f.read().splitlines()
 
 # for each string of digits, find the two highest digits in consecutive order:
@@ -42,18 +42,28 @@ sum = 0
 #     sum += find_two_highest(s)
 
 # print(sum)
+def shorten_front(s):
+    while len(s) > 12 and (s[0] < s[1]):
+        s = s[1:]
+    return s
+
+
 
 def find_12_largest(s):
     while len(s) > 12:
-        for n in range(1, 9, 1):
-            while s.rfind(str(n)) != -1 and len(s) > 12:
-                r_ind = s.rfind(str(n))
-                s = s[:r_ind] + s[r_ind+1:]
+        for n in range(1, 10, 1):
+            while s.find(str(n)) != -1 and len(s) > 12:
+                print("Removing", n, "from", s)
+                low_ind = s.find(str(n))
+                s = s[:low_ind] + s[low_ind+1:]
     return s
 
-for r in data:
-    new_s = find_12_largest(r)
-    print(r, new_s)
+# print(find_12_largest(s))
+
+new_data = data
+for i, r in enumerate(new_data):
+    s = shorten_front(r)
+    new_s = find_12_largest(s)
     sum += int(new_s)
 
 print(sum)
