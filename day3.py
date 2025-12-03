@@ -33,7 +33,6 @@ def find_two_highest(s):
         n = second * 10 + highest
         return n
 
-# print(find_two_highest("2222113432211341321312222521422242323312223222312222222243332226232223222122223222422353223131372222"))
 sum = 0
 
 # for r, s in enumerate(data):
@@ -41,29 +40,29 @@ sum = 0
 #     # print(r, two_highest)
 #     sum += find_two_highest(s)
 
-# print(sum)
-def shorten_front(s):
-    while len(s) > 12 and (s[0] < s[1]):
-        s = s[1:]
-    return s
-
-
 
 def find_12_largest(s):
     while len(s) > 12:
-        for n in range(1, 10, 1):
-            while s.find(str(n)) != -1 and len(s) > 12:
-                print("Removing", n, "from", s)
-                low_ind = s.find(str(n))
-                s = s[:low_ind] + s[low_ind+1:]
+        print(s)
+        # Find the leftmost position where s[i] < s[i+1]
+        removed = False
+        for i in range(len(s) - 1):
+            if s[i] < s[i + 1]:
+                print(s[i])
+                s = s[:i] + s[i+1:]
+                removed = True
+                break
+        # If no such position exists, remove the last digit
+        if not removed:
+            s = s[:-1]
+    print(s)
     return s
 
 # print(find_12_largest(s))
 
 new_data = data
 for i, r in enumerate(new_data):
-    s = shorten_front(r)
-    new_s = find_12_largest(s)
+    new_s = find_12_largest(r)
     sum += int(new_s)
 
 print(sum)
