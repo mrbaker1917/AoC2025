@@ -3,7 +3,9 @@ data = []
 with open('day4_data.txt') as f:
     data = [line.strip() for line in f.readlines()]
 
-openings = 0
+data = [list(l) for l in data]
+
+
 # print(data)
 def is_open(i, j):
     roll_count = 0
@@ -88,8 +90,21 @@ def is_open(i, j):
             roll_count += 1
         return roll_count < 4
 
-for i in range(len(data)):
-    for j in range(len(data[0])):
-        if data[i][j] == "@" and is_open(i, j):
-            openings += 1
-print(openings)
+total = 0
+
+def remove_open_rolls(data):
+    openings = 0
+    global total
+    for i in range(len(data)):
+        for j in range(len(data[0])):
+            if data[i][j] == "@" and is_open(i, j):
+                openings += 1
+                data[i][j] = "."
+    total += openings
+    if openings == 0:
+        return data
+    else:
+        return remove_open_rolls(data)
+
+remove_open_rolls(data)
+print(total)
