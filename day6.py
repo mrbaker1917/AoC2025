@@ -6,7 +6,7 @@ with open("day6_data.txt") as f:
             data.append(line)
         else:
             data.append(line)
-print(data)
+
 new_data = []
 ops = []
 for i in range(len(data[0])-1, -1, -1):
