@@ -37,13 +37,11 @@ for i, r in enumerate(data):
                 splits += 1
 # print(splits)
 
-# part 2:
-# paths = 0
-# for i, r in enumerate(data):
-#     for j, c in enumerate(r):
-#         if c == "|":
-#             paths += 1
-# print(paths)
+# PART THE SECOND:
+# This code moves up the grid from the bottom, turning the "|" in the bottom row
+# to "1"; it then moves up the grid, whenever it finds a "|" with a splitter "^"
+# right below it, then it adds the numbers or 2 paths to left and right of splitter.
+# It worked well, once I figured out how to get the adding to work.
 
 for i in range(len(data)-1, 0, -1):
     for j in range(len(data[i])):
