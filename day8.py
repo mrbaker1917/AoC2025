@@ -24,29 +24,39 @@ for j in range(len(data)):
         d[dist] = [p1, p]
 
 d_keys = sorted(d.keys())
-for k in d_keys[:10]:
-    print(k, d[k])
+# for k in d_keys[:10]:
+#     print(k, d[k])
 
 circuit_pairs = []
 
-for k in d_keys[:10]:
+for k in d_keys[:20]:
     p1, p2 = d[k]
     p1s = "-".join(map(str, p1))
     p2s = "-".join(map(str, p2))
     circuit_pairs.append([p1s, p2s])
 
 print(circuit_pairs)
-
+added = False
 circuits = [circuit_pairs[0]]
-for pair in circuit_pairs:
-    for i in range(len(circuits)):
-        if pair[0] in circuits[i]:
-            circuits[i].append(pair[1])
+for i, pair in enumerate(circuit_pairs[1:]):
+    for j in range(len(circuits)):
+        if pair[0] in circuits[j] and pair[1] in circuits[j]:
+            added = True
+            circuit_pairs.pop(i)
             break
-        elif pair[1] in circuits[i]:
-            circuits[i].append(pair[0])
+        elif pair[0] in circuits[j]:
+            circuits[j].append(pair[1])
+            added = True
+            circuit_pairs.pop(i)
             break
-        else:
-            continue
+            
+        elif pair[1] in circuits[j]:
+            circuits[j].append(pair[0])
+            added = True
+            circuit_pairs.pop(i)
+            break
+        print(f"circuit_pairs: {circuit_pairs}")
+    if not added:   
+        circuits.append(pair)
 
-print(circuits)
+print(f"circuits: {circuits}")
