@@ -29,34 +29,41 @@ d_keys = sorted(d.keys())
 
 circuit_pairs = []
 
-for k in d_keys[:20]:
+for k in d_keys[:11]:
     p1, p2 = d[k]
     p1s = "-".join(map(str, p1))
     p2s = "-".join(map(str, p2))
     circuit_pairs.append([p1s, p2s])
 
-print(circuit_pairs)
-added = False
-circuits = [circuit_pairs[0]]
-for i, pair in enumerate(circuit_pairs[1:]):
+# print(circuit_pairs)
+circuits = []
+for i, pair in enumerate(circuit_pairs):
+    added = False
     for j in range(len(circuits)):
         if pair[0] in circuits[j] and pair[1] in circuits[j]:
             added = True
-            circuit_pairs.pop(i)
+            circuit_pairs[i] = []
             break
         elif pair[0] in circuits[j]:
             circuits[j].append(pair[1])
             added = True
-            circuit_pairs.pop(i)
+            circuit_pairs[i] = []
             break
             
         elif pair[1] in circuits[j]:
             circuits[j].append(pair[0])
             added = True
-            circuit_pairs.pop(i)
+            circuit_pairs[i] = []
             break
-        print(f"circuit_pairs: {circuit_pairs}")
+
     if not added:   
         circuits.append(pair)
 
-print(f"circuits: {circuits}")
+circuits = sorted(circuits, key=len, reverse=True)
+print(len(circuits))
+for ci in circuits:
+    print(ci, len(ci))
+total_circ = 1
+for c in circuits[:3]:
+    total_circ *= len(c)
+print(total_circ)
