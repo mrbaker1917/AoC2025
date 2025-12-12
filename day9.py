@@ -17,4 +17,23 @@ for p1 in data:
         if area > largest_area:
             largest_area = area
 
-print(largest_area)
+# print(largest_area)
+
+
+# part 2:
+widest_row = 0
+widest_row_pt = []
+second_widest_row = 0
+sec_widest_row_pt = []
+for i, row in enumerate(data):
+    if i < len(data)-2 and row[0] == data[i+1][0]:
+        w = data[i+1][1]-row[1] 
+        if w > widest_row:
+            second_widest_row = widest_row
+            sec_widest_row_pt = widest_row_pt
+            widest_row = w
+            widest_row_pt = [row, data[i+1]]
+
+print(widest_row, widest_row_pt, second_widest_row, sec_widest_row_pt)
+print(widest_row * (widest_row_pt[0][0]-sec_widest_row_pt[0][0]))
+
