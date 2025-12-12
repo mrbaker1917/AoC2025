@@ -20,6 +20,7 @@ for i, (x1, y1,z1) in enumerate(data):
         if i>j:
             D.append((distance, i, j))
 
+D = sorted(D)
 uf = {i: i for i in range(len(data))}
 
 def find(x):
@@ -32,17 +33,17 @@ def mix(x, y):
     uf[find(x)] = find(y)
 
 connections = 0
-D = sorted(D)
-for distance, i, j in D[:1000]:
+for t, (distance, i, j) in enumerate(D):
+    if t == 1000:
+        sz = defaultdict(int)
+        for x in range(len(data)):
+            sz[find(x)] += 1
+        s = sorted(sz.values())
+        print(s[-1]*s[-2]*s[-3])
+
     if find(i) != find(j):
         connections += 1
         if connections == len(data) - 1:
             print(data[i][0]*data[j][0])
         mix(i,j)
 
-sz = defaultdict(int)
-
-for x in range(len(data)):
-    sz[find(x)] += 1
-s = sorted(sz.values())
-print(s[-1]*s[-2]*s[-3])
