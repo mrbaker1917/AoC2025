@@ -21,19 +21,26 @@ for p1 in data:
 
 
 # part 2:
-widest_row = 0
-widest_row_pt = []
-second_widest_row = 0
-sec_widest_row_pt = []
-for i, row in enumerate(data):
-    if i < len(data)-2 and row[0] == data[i+1][0]:
-        w = data[i+1][1]-row[1] 
-        if w > widest_row:
-            second_widest_row = widest_row
-            sec_widest_row_pt = widest_row_pt
-            widest_row = w
-            widest_row_pt = [row, data[i+1]]
+h = data[-1][0]+2
+w = max([i[1] for i in data])+3
+grid = [["." for _ in range(w)] for _ in range(h)]
 
-print(widest_row, widest_row_pt, second_widest_row, sec_widest_row_pt)
-print(widest_row * (widest_row_pt[0][0]-sec_widest_row_pt[0][0]))
+rows = {data[p][0]: [data[p-1][1],data[p][1]] for p in range(1, len(data), 2)}
+print(rows)
+for r, c in rows.items():
+    c1 = c[0]
+    c2 = c[1]
+    grid[r][c1] = "#"
+    grid[r][c2] = "#"
+    for j in range(c1+1, c2):
+        grid[r][j] = "X"
 
+# for i, row in enumerate(grid[:-1]):
+#     for j in range(len(row)-1):
+#         if 
+
+
+
+
+for r in grid:
+    print("".join(r))
